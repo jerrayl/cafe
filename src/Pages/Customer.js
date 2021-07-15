@@ -20,6 +20,7 @@ function Customer() {
   const fetchCustomerOrders = () => {
     const customerOrderResponse = backend.getCustomerOrders(name);
     setCustomerOrders(customerOrderResponse);
+    console.log(customerOrders);
   }
 
 
@@ -27,7 +28,7 @@ function Customer() {
   useEffect(() => {
     fetchMenu();
     fetchCustomerOrders();
-  })
+  }, [])
 
   const onSubmitButtonClick = () => {
     backend.submitOrder({
@@ -40,38 +41,49 @@ function Customer() {
 
   return (
     <>
-      <h2>Order Page</h2>
-      <h3>Welcome {name}! Please make an order.</h3>
-      <div className="split">
+      <div className="flex justify-center mt-10 items-center">
         <div>
-          <div className="row">
-            <label for="name">Enter your name:</label>
-            <input value={name} onChange={(e) => setName(e.target.value)}></input>
+          <h2 className="font-semibold text-lg text-center">Order Page</h2>
+          <h2 className="text-md text-center">Welcome {name}! Please make an order.</h2>
+        </div>
+      </div>
+      <div className="flex justify-evenly">
+        <div>
+          <div className="">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+            <input value={name} onChange={(e) => setName(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></input>
           </div>
-          <div className="row">
-            <label for="menu">Choose a dish:</label>
-            <select name="menu" value={orderChoice} onInput={(e) => setOrderChoice(e.target.value)}>
+          <div className="mt-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Order:</label>
+            <select name="menu" value={orderChoice} onInput={(e) => setOrderChoice(e.target.value)} className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
               { // .map creates an option for each item in the menu
                 menu.map(item => <option key={item.itemName} value={item.itemName}>{item.displayName}</option>)
               }
             </select>
           </div>
-          <div className="row">
-            <button onClick={onSubmitButtonClick}>Submit</button>
+          <div className="mt-4 float-right">
+            <button onClick={onSubmitButtonClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
           </div>
         </div>
         <div>
-          <img className="displayImage" src=
-            { // .find returns the item corresponding the the user's current choice
-              menu.find(item => item.itemName === orderChoice)?.image
-            }
-            alt="foodImage" />
-          <h3>Price: {menu.find(item => item.itemName === orderChoice)?.price}</h3>
+          <div className="w-32 h-40">
+            <img className="w-auto h-auto" src=
+              { // .find returns the item corresponding the the user's current choice
+                menu.find(item => item.itemName === orderChoice)?.image
+              }
+              alt="foodImage" />
+          </div>
+          <h3 className="text-gray-700 text-md font-bold text-center">Price: ${menu.find(item => item.itemName === orderChoice)?.price}</h3>
         </div>
       </div>
-      <h3>Your Orders</h3>
-      {customerOrders.map(order => <span className="row"><p className="bold marginRight">{order.name}</p><p>{order.orderChoice}</p></span>)}
-
+      <div className="flex justify-center">
+        <div>
+          <h2 className="font-semibold text-lg text-center">Your Orders</h2>
+          {customerOrders.map((order, i) =>
+              <h2 key ={i} className="px-5 py-2">{order.orderChoice}</h2>
+            )}
+        </div>
+      </div>
     </>
   );
 }

@@ -1,13 +1,13 @@
 // This file mimics the functionality of a backend database
 // In a production app, these will be replaced by api calls to the backend
 
-import React, { useState } from "react";
+import React, { useRef } from "react";
 
 export const Backend = React.createContext();
 
 export const BackendProvider = (props) => {
 
-  const [orders, setOrders] = useState([]);
+  const orders = useRef([]);
 
   const menuItems = [
     { "itemName": "apple", "displayName": "Apple", "price": 1, "image": "https://healthjade.com/wp-content/uploads/2017/10/apple-fruit.jpg" },
@@ -24,18 +24,18 @@ export const BackendProvider = (props) => {
 
   // submitOrder represents an API call to the backend to pass it new data created by a user
   const submitOrder = (order) => {
-    setOrders(orders => [...orders, order]);
+    orders.current = [...orders.current, order];
   }
 
   // submitOrder represents an API call to the backend to pass it new data created by a user
   const getAllOrders = () => {
-    return orders;
+    return orders.current;
   }
 
   const getCustomerOrders = (name) => {
     // ./ filters returns all entries which match a certain condition.
     // In this case, the condition is that the name passed in is equal to the name on the order 
-    return orders.filter(order => order.name === name);
+    return orders.current.filter(order => order.name === name);
   }
 
   return (

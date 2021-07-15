@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <BackendProvider>
-      <Router>
+        <Router>
           <Switch>
             <Route path="/customer">
               <Customer />
@@ -28,11 +28,18 @@ function App() {
               <Admin />
             </Route>
             <Route path="/">
-              <Link to="/customer" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Customer</Link>
-              <Link to="/admin">Admin</Link>
+              <div className="mt-20">
+                <div className="flex justify-center">
+                  <h2 className="font-semibold text-lg">Are you a customer or admin staff?</h2>
+                </div>
+                <div className="flex justify-evenly mt-20">
+                  <Link to="/customer" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Customer</Link>
+                  <Link to="/admin" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Admin</Link>
+                </div>
+              </div>
             </Route>
           </Switch>
-      </Router>
+        </Router>
       </BackendProvider>
     </div>
   );
