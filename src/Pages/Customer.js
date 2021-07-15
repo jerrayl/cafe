@@ -1,20 +1,28 @@
 import '../App.css';
-import { getMenu } from "../API.js"
-import React, { useEffect, useState } from 'react';
+
+// Any lines relating to context/backend are specific to the approximation of a backend, and can be ignored
+import React, { useEffect, useState, useContext } from 'react';
+import { Backend } from "../utils/backend";
 
 function Customer() {
+  const backend = useContext(Backend);
+
   const [name, setName] = useState("");
   const [orderChoice, setOrderChoice] = useState("apple");
   const [menu, setMenu] = useState([]);
 
 
+  // This useEffect call obtains menu data from the "backend" when this page is loaded
   useEffect(()=>{
-    const response = getMenu();
+    const response = backend.getMenu();
     setMenu(response);
-  })
+  }, [backend])
 
   const onSubmitButtonClick = () => {
-    // submit to backend
+    backend.submitOrder({
+      "name": name,
+      "orderChoice": orderChoice
+    });
   }
 
   return (
