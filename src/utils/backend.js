@@ -44,7 +44,7 @@ export const BackendProvider = (props) => {
         getMenu: getMenu,
         submitOrder: submitOrder,
         getAllOrders: getAllOrders,
-        getCustomerOrders, getCustomerOrders
+        getCustomerOrders: getCustomerOrders
       }}>
       {props.children}
     </Backend.Provider>

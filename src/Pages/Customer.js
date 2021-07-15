@@ -27,7 +27,7 @@ function Customer() {
   useEffect(() => {
     fetchMenu();
     fetchCustomerOrders();
-  }, [backend])
+  })
 
   const onSubmitButtonClick = () => {
     backend.submitOrder({

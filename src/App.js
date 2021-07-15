@@ -28,7 +28,7 @@ function App() {
               <Admin />
             </Route>
             <Route path="/">
-              <Link to="/customer">Customer</Link>
+              <Link to="/customer" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Customer</Link>
               <Link to="/admin">Admin</Link>
             </Route>
           </Switch>
