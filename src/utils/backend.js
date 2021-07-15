@@ -28,8 +28,14 @@ export const BackendProvider = (props) => {
   }
 
   // submitOrder represents an API call to the backend to pass it new data created by a user
-  const getOrders = () => {
+  const getAllOrders = () => {
     return orders;
+  }
+
+  const getCustomerOrders = (name) => {
+    // ./ filters returns all entries which match a certain condition.
+    // In this case, the condition is that the name passed in is equal to the name on the order 
+    return orders.filter(order => order.name === name);
   }
 
   return (
@@ -37,7 +43,8 @@ export const BackendProvider = (props) => {
       value={{
         getMenu: getMenu,
         submitOrder: submitOrder,
-        getOrders: getOrders
+        getAllOrders: getAllOrders,
+        getCustomerOrders, getCustomerOrders
       }}>
       {props.children}
     </Backend.Provider>

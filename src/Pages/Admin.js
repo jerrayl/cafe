@@ -10,7 +10,7 @@ function Admin() {
 
   // This useEffect call obtains order data from the "backend" when this page is loaded
   useEffect(() => {
-    const response = backend.getOrders();
+    const response = backend.getAllOrders();
     setOrders(response);
   }, [backend])
 

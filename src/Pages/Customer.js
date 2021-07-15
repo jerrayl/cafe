@@ -10,12 +10,23 @@ function Customer() {
   const [name, setName] = useState("");
   const [orderChoice, setOrderChoice] = useState("apple");
   const [menu, setMenu] = useState([]);
+  const [customerOrders, setCustomerOrders] = useState([]);
+
+  const fetchMenu = () => {
+    const menuResponse = backend.getMenu();
+    setMenu(menuResponse);
+  }
+
+  const fetchCustomerOrders = () => {
+    const customerOrderResponse = backend.getCustomerOrders(name);
+    setCustomerOrders(customerOrderResponse);
+  }
 
 
-  // This useEffect call obtains menu data from the "backend" when this page is loaded
-  useEffect(()=>{
-    const response = backend.getMenu();
-    setMenu(response);
+  // This useEffect call obtains menu and order data from the "backend" when this page is loaded
+  useEffect(() => {
+    fetchMenu();
+    fetchCustomerOrders();
   }, [backend])
 
   const onSubmitButtonClick = () => {
@@ -23,6 +34,8 @@ function Customer() {
       "name": name,
       "orderChoice": orderChoice
     });
+    // re-fetch orders to show the latest order
+    fetchCustomerOrders();
   }
 
   return (
@@ -56,6 +69,9 @@ function Customer() {
           <h3>Price: {menu.find(item => item.itemName === orderChoice)?.price}</h3>
         </div>
       </div>
+      <h3>Your Orders</h3>
+      {customerOrders.map(order => <span className="row"><p className="bold marginRight">{order.name}</p><p>{order.orderChoice}</p></span>)}
+
     </>
   );
 }
