@@ -28,7 +28,8 @@ function Admin() {
             </tr>
           </thead>
           <tbody>
-            {orders.map(order =>
+            { // .map creates a row in the table for each order
+              orders.map(order =>
               <tr>
                 <td className="border px-5 py-2">{order.name}</td>
                 <td className="border px-5 py-2">{order.orderChoice}</td>
