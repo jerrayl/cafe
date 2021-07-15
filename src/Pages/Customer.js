@@ -1,22 +1,26 @@
 import '../App.css';
-import { getImage } from "../API.js"
-import React, { useState } from 'react';
+import { getMenu } from "../API.js"
+import React, { useEffect, useState } from 'react';
 
 function Customer() {
   const [name, setName] = useState("");
   const [orderChoice, setOrderChoice] = useState("apple");
-  const [orders, setOrders] = useState([]);
+  const [menu, setMenu] = useState([]);
+
+
+  useEffect(()=>{
+    const response = getMenu();
+    setMenu(response);
+  })
 
   const onSubmitButtonClick = () => {
-    setOrders(oldOrders => [...oldOrders, {
-      "name": name,
-      "orderChoice": orderChoice
-    }]);
+    // submit to backend
   }
 
   return (
     <>
       <h2>Order Page</h2>
+      <h3>Welcome {name}! Please make an order.</h3>
       <div className="split">
         <div>
           <div className="row">
@@ -26,11 +30,9 @@ function Customer() {
           <div className="row">
             <label for="menu">Choose a dish:</label>
             <select name="menu" value={orderChoice} onInput={(e) => setOrderChoice(e.target.value)}>
-              <option value="apple">Apple</option>
-              <option value="orange">Orange</option>
-              <option value="banana">Banana</option>
-              <option value="kiwi">Kiwi</option>
-              <option value="strawberry">Strawberry</option>
+              { // .map creates an option for each item in the menu
+                menu.map(item => <option key={item.itemName} value={item.itemName}>{item.displayName}</option>)
+              }
             </select>
           </div>
           <div className="row">
@@ -38,8 +40,12 @@ function Customer() {
           </div>
         </div>
         <div>
-          <h3>Your name is: {name}</h3>
-          <img className="displayImage" src={getImage(orderChoice)} alt="foodImage" />
+          <img className="displayImage" src=
+            { // .find returns the item corresponding the the user's current choice
+              menu.find(item => item.itemName === orderChoice)?.image
+            }
+            alt="foodImage" />
+          <h3>Price: {menu.find(item => item.itemName === orderChoice)?.price}</h3>
         </div>
       </div>
     </>
