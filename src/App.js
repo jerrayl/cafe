@@ -31,6 +31,7 @@ function App() {
               <option value="orange">Orange</option>
               <option value="banana">Banana</option>
               <option value="kiwi">Kiwi</option>
+              <option value="strawberry">Strawberry</option>
             </select>
           </div>
           <div className="row">
@@ -43,7 +44,7 @@ function App() {
         </div>
       </div>
       <h2>Admin Page</h2>
-      {orders.map(order => <span className="row"><p>D</p><p className="bold marginRight">{order.name}</p><p>{order.orderChoice}</p></span>)}
+      {orders.map(order => <span className="row"><p className="bold marginRight">{order.name}</p><p>{order.orderChoice}</p></span>)}
     </div>
   );
 }
