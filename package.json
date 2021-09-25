@@ -16,7 +16,7 @@
   "devDependencies": {
     "autoprefixer": "^9.8.6",
     "postcss": "^7.0.36",
-    "react-scripts": "4.0.3",
+    "react-scripts": "4.0.3"
   },
   "scripts": {
     "start": "craco start",
