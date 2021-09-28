@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import decks from '../components/decks';
 import Card from '../components/Card';
+import { useParams } from 'react-router';
 
 
 function Game() {
@@ -9,6 +10,9 @@ function Game() {
   const [hand, setHand] = useState([]);
   const [discard, setDiscard] = useState([]);
   const [selected, setSelected] = useState([]);
+
+  const params = useParams();
+  const deck_name = params.deck;
 
   const shuffle = (arr) => {
     return arr
@@ -19,7 +23,7 @@ function Game() {
 
   useEffect(() => {
     const initial_deck = shuffle(
-      decks.light_mage.reduce(
+      decks[deck_name].reduce(
         (arr, card_prototype) => arr.concat(Array(card_prototype.number).fill(card_prototype)), [])
     );
     setDeck(initial_deck.slice(5));

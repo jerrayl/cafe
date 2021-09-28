@@ -4,7 +4,8 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import Game from "../src/pages/Game";
+import Game from "./pages/Game";
+import Board from './pages/Board';
 
 
 
@@ -13,8 +14,11 @@ function App() {
     <div className="App">
         <Router>
           <Switch>
-            <Route path="/">
+            <Route path="/game/:deck">
                 <Game/>
+            </Route>
+            <Route exact path="/board">
+                <Board/>
             </Route>
           </Switch>
         </Router>
